@@ -163,3 +163,19 @@ curl -X POST "http://localhost:8000/api/v1/tender/process?format=excel" \
 ```
 http://localhost:8000/docs
 ```
+
+---
+
+## 5. Current Scope & Future Production Considerations
+
+This is an assessment MVP. The following capabilities are not implemented but would be addressed when expanding to a production system:
+
+| Area | Current State |
+|------|---------------|
+| **Chunking strategy** | No. Historical Q&A pairs are stored as whole documents (one question per document). No sentence splitting, recursive splitting, or other chunking. |
+| **Validation / guardrails** | Limited. Prompts say "never fabricate" and "maintain consistency." The reviewer flags issues. There is a `similarity_threshold` (0.7) to filter weak matches. No programmatic guardrails (PII, prompt injection, output validation). |
+| **Security standards** | No. No auth, rate limiting, or input sanitization. File upload only checks `.xlsx`/`.xls`. No explicit security controls. |
+| **RAG output evaluation** | No. No metrics, ground-truth comparison, or automated evaluation of retrieval or generation quality. |
+| **Latency, cost, metrics** | No. No latency tracking, token counting, cost calculation, or metrics. |
+| **Recall@5 or MRR** | No. No retrieval metrics (Recall@5, MRR, etc.). |
+| **Reranking** | No. Single-stage retrieval: ChromaDB `top_k` + `similarity_threshold`. No second-stage reranker. |
