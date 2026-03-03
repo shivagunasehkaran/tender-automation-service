@@ -1,0 +1,30 @@
+[
+  {
+    "question": "What is your licensing and pricing model?",
+    "answer": "We offer per-user subscription pricing with tiered feature access. The Starter tier includes core functionality for teams up to 10 users. Professional and Enterprise tiers add advanced features, API access, and dedicated support. Pricing is monthly or annually with a discount for annual commitment. We do not charge per-transaction or per-API-call for standard usage.",
+    "domain": "Pricing",
+    "tender_id": "TENDER-2024-001",
+    "date": "2024-06-15"
+  },
+  {
+    "question": "Do you offer volume discounts for large deployments?",
+    "answer": "Yes. We offer volume discounts for deployments over 100 users. Discounts scale with seat count and typically range from 10% to 25% for enterprise agreements. Multi-year commitments receive additional discounts. We provide custom quotes for very large deployments (1000+ users) and can structure enterprise agreements to meet procurement requirements.",
+    "domain": "Pricing",
+    "tender_id": "TENDER-2024-001",
+    "date": "2024-06-15"
+  },
+  {
+    "question": "What are implementation and onboarding costs?",
+    "answer": "Implementation is included in our Professional and Enterprise tiers. This covers initial setup, data migration support, and administrator training. Custom integrations and complex migrations may incur additional professional services fees, quoted separately. Onboarding typically completes within 2-4 weeks depending on scope. We provide a dedicated success manager for Enterprise customers.",
+    "domain": "Pricing",
+    "tender_id": "TENDER-2024-002",
+    "date": "2024-07-22"
+  },
+  {
+    "question": "How is support tier pricing structured?",
+    "answer": "Support is included in all tiers. Starter includes email support with 48-hour response. Professional adds chat support and 24-hour response. Enterprise includes 24/7 phone support, 4-hour response for critical issues, and a dedicated technical account manager. Premium support add-ons are available for customers requiring enhanced SLAs. All support is provided in English with additional language options for Enterprise.",
+    "domain": "Pricing",
+    "tender_id": "TENDER-2024-002",
+    "date": "2024-07-22"
+  }
+]

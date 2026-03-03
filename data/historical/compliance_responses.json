@@ -1,0 +1,51 @@
+[
+  {
+    "question": "Is your organization GDPR compliant?",
+    "answer": "Yes. We are GDPR compliant and process personal data in accordance with applicable requirements. We support data subject rights including access, rectification, erasure, and portability through self-service and API. Our Data Processing Agreement includes standard contractual clauses for international transfers. We maintain records of processing activities and conduct Data Protection Impact Assessments where required.",
+    "domain": "Compliance",
+    "tender_id": "TENDER-2024-001",
+    "date": "2024-06-15"
+  },
+  {
+    "question": "Are you SOC 2 Type II certified?",
+    "answer": "Yes. We maintain SOC 2 Type II certification. Our most recent audit was completed in Q2 2024. The report covers security, availability, and confidentiality trust service criteria. We can provide the report under NDA to qualified prospects. Our controls are designed to meet the AICPA TSC framework and we undergo annual audits.",
+    "domain": "Compliance",
+    "tender_id": "TENDER-2024-001",
+    "date": "2024-06-15"
+  },
+  {
+    "question": "Do you hold ISO 27001 certification?",
+    "answer": "Yes. We are ISO 27001 certified. Our Information Security Management System covers all aspects of our platform and operations. Certification is maintained through annual surveillance audits. Our ISMS is aligned with ISO 27002 controls. We can provide certification documentation to enterprise customers during the procurement process.",
+    "domain": "Compliance",
+    "tender_id": "TENDER-2024-002",
+    "date": "2024-07-22"
+  },
+  {
+    "question": "How do you handle data sovereignty and residency requirements?",
+    "answer": "We support data residency in multiple regions including EU, UK, US, and APAC. Customers can specify their preferred data location at deployment. Data does not leave the selected region except where explicitly required for support or with customer consent. We maintain region-specific infrastructure and do not replicate data across sovereignty boundaries without agreement.",
+    "domain": "Compliance",
+    "tender_id": "TENDER-2024-002",
+    "date": "2024-07-22"
+  },
+  {
+    "question": "What audit logging and reporting do you provide?",
+    "answer": "We maintain comprehensive audit logs for all system access, configuration changes, and data operations. Logs are retained for 12 months by default and up to 7 years for enterprise. We provide exportable audit reports and support integration with SIEM systems. Logs include user, timestamp, action, and resource. Tamper-evident logging is used for compliance-critical events.",
+    "domain": "Compliance",
+    "tender_id": "TENDER-2024-003",
+    "date": "2024-08-10"
+  },
+  {
+    "question": "Do you have a privacy policy and data processing agreement?",
+    "answer": "Yes. We maintain a publicly available privacy policy and offer a Data Processing Agreement (DPA) to all customers. Our DPA includes standard contractual clauses for international transfers and meets GDPR Article 28 requirements. We can accommodate customer-specific DPA addenda for enterprise contracts. Sub-processor lists are maintained and updated with change notifications.",
+    "domain": "Compliance",
+    "tender_id": "TENDER-2024-003",
+    "date": "2024-08-10"
+  },
+  {
+    "question": "Describe your GDPR data subject rights handling.",
+    "answer": "We support all GDPR data subject rights. Access requests can be fulfilled through self-service export or within 30 days for complex requests. Rectification and erasure are supported with propagation across systems. Portability is provided in machine-readable format. We have documented procedures and train support staff on request handling. Our privacy team oversees compliance.",
+    "domain": "Compliance",
+    "tender_id": "TENDER-2024-004",
+    "date": "2024-09-01"
+  }
+]

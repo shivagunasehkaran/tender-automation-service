@@ -1,0 +1,51 @@
+[
+  {
+    "question": "Which cloud providers and regions do you support?",
+    "answer": "Our platform runs on AWS and Azure. We support deployments in AWS us-east-1, us-west-2, eu-west-1, and ap-southeast-1, and Azure East US, West Europe, and Southeast Asia. Customers can choose their preferred region for data residency. Multi-region deployments are available for enterprise customers requiring disaster recovery across geographies.",
+    "domain": "Infrastructure",
+    "tender_id": "TENDER-2024-001",
+    "date": "2024-06-15"
+  },
+  {
+    "question": "What is your uptime SLA and availability guarantee?",
+    "answer": "We offer a 99.9% uptime SLA for our standard tier and 99.95% for enterprise. SLA credits are applied automatically for any month where we fall below the guarantee. Our infrastructure is designed for high availability with multi-AZ deployments, automated failover, and redundant components. Planned maintenance is communicated 14 days in advance and typically occurs during low-traffic windows.",
+    "domain": "Infrastructure",
+    "tender_id": "TENDER-2024-001",
+    "date": "2024-06-15"
+  },
+  {
+    "question": "Describe your disaster recovery and backup procedures.",
+    "answer": "We perform automated daily backups with point-in-time recovery capability. RPO is 24 hours for standard tier and 1 hour for enterprise. RTO targets are 4 hours for standard and 1 hour for enterprise. Backups are stored in a separate region and encrypted. We conduct quarterly DR drills and document recovery procedures. Failover is automated where possible.",
+    "domain": "Infrastructure",
+    "tender_id": "TENDER-2024-002",
+    "date": "2024-07-22"
+  },
+  {
+    "question": "How does your platform scale under peak load?",
+    "answer": "Our architecture supports horizontal scaling. Application tiers auto-scale based on CPU, memory, and request metrics. Database read replicas handle query load. We use load balancers with health checks for traffic distribution. During peak periods, scaling typically completes within 5 minutes. We have successfully handled 10x normal load during customer go-live events.",
+    "domain": "Infrastructure",
+    "tender_id": "TENDER-2024-002",
+    "date": "2024-07-22"
+  },
+  {
+    "question": "Describe your network architecture and redundancy.",
+    "answer": "We use a multi-tier architecture with web, application, and data layers. Each tier runs across multiple availability zones. Network traffic is routed through redundant load balancers. We employ CDN for static assets and API caching. Internal services communicate over private subnets. BGP-based failover is used for network resilience.",
+    "domain": "Infrastructure",
+    "tender_id": "TENDER-2024-003",
+    "date": "2024-08-10"
+  },
+  {
+    "question": "What monitoring and alerting capabilities do you provide?",
+    "answer": "We provide real-time dashboards for key metrics including latency, error rates, and throughput. Alerts can be configured for threshold breaches and anomaly detection. We support webhook integration for PagerDuty, Slack, and custom endpoints. Enterprise customers receive dedicated monitoring views and can export metrics to their SIEM. On-call engineers respond to critical alerts within 15 minutes.",
+    "domain": "Infrastructure",
+    "tender_id": "TENDER-2024-003",
+    "date": "2024-08-10"
+  },
+  {
+    "question": "What are your RPO and RTO targets for disaster recovery?",
+    "answer": "Our RPO is 24 hours for standard deployments and 1 hour for enterprise with synchronous replication. RTO is 4 hours for standard and 1 hour for enterprise. These targets are documented in our SLA and validated during quarterly DR tests. We provide runbooks for recovery procedures to customer success teams.",
+    "domain": "Infrastructure",
+    "tender_id": "TENDER-2024-004",
+    "date": "2024-09-01"
+  }
+]

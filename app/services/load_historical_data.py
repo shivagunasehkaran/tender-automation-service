@@ -2,8 +2,11 @@
 Load historical tender responses from data/historical/ into ChromaDB.
 
 Expected JSON format per file:
-  {"domain": "Security", "responses": [{"question": "...", "answer": "..."}]}
-Or flat: [{"question": "...", "answer": "...", "domain": "..."}]
+  [{"question": "...", "answer": "...", "domain": "..."}]
+Or: {"domain": "X", "responses": [{"question": "...", "answer": "..."}]}
+
+Usage:
+    python -m app.services.load_historical_data
 """
 
 import json
@@ -17,31 +20,46 @@ logger = logging.getLogger(__name__)
 HISTORICAL_DATA_DIR = Path(__file__).resolve().parent.parent.parent / "data" / "historical"
 
 
-def load_historical_data() -> int:
+def _domain_from_filename(stem: str) -> str:
+    """Infer domain from filename, e.g. security_responses -> Security."""
+    parts = stem.replace("_", " ").replace("-", " ").split()
+    if not parts:
+        return "General"
+    return parts[0].title()
+
+
+def load_all_historical_data(data_dir: str | Path | None = None) -> dict:
     """
-    Load all JSON files from data/historical/ into the vector store.
+    Load all JSON files from the historical data directory into ChromaDB.
 
     Returns:
-        Total number of documents added.
+        Dict with loading stats: files_processed, total_documents, domains.
     """
+    data_path = Path(data_dir) if data_dir else HISTORICAL_DATA_DIR
+    stats: dict = {"files_processed": 0, "total_documents": 0, "domains": {}}
+
+    if not data_path.exists():
+        logger.warning("Historical data dir does not exist: %s", data_path)
+        return stats
+
     vector_store = get_vector_store()
     vector_store.reset_collection()
 
     all_responses: list[dict] = []
-    if not HISTORICAL_DATA_DIR.exists():
-        logger.warning("Historical data dir does not exist: %s", HISTORICAL_DATA_DIR)
-        return 0
 
-    for path in HISTORICAL_DATA_DIR.glob("*.json"):
+    for json_file in sorted(data_path.glob("*.json")):
         try:
-            data = json.loads(path.read_text(encoding="utf-8"))
+            data = json.loads(json_file.read_text(encoding="utf-8"))
+            file_count = 0
+
             if isinstance(data, list):
                 for item in data:
                     if "question" in item and "answer" in item:
-                        item.setdefault("domain", _domain_from_filename(path.stem))
+                        item.setdefault("domain", _domain_from_filename(json_file.stem))
                         all_responses.append(item)
+                        file_count += 1
             elif isinstance(data, dict):
-                domain = data.get("domain", _domain_from_filename(path.stem))
+                domain = data.get("domain", _domain_from_filename(json_file.stem))
                 for r in data.get("responses", data.get("items", [])):
                     if "question" in r and "answer" in r:
                         all_responses.append({
@@ -51,21 +69,37 @@ def load_historical_data() -> int:
                             "tender_id": r.get("tender_id"),
                             "date": r.get("date"),
                         })
+                        file_count += 1
+
+            if file_count > 0:
+                stats["files_processed"] += 1
+                logger.info("Loaded %s: %d documents", json_file.name, file_count)
+
         except Exception as e:
-            logger.error("Failed to load %s: %s", path, e)
+            logger.error("Failed to load %s: %s", json_file, e)
 
-    if not all_responses:
+    if all_responses:
+        n = vector_store.add_historical_responses(all_responses)
+        stats["total_documents"] = n
+        for r in all_responses:
+            d = r.get("domain", "Unknown")
+            stats["domains"][d] = stats["domains"].get(d, 0) + 1
+        logger.info("Total: %d documents loaded into ChromaDB", n)
+    else:
         logger.info("No historical responses to load")
-        return 0
 
-    n = vector_store.add_historical_responses(all_responses)
-    logger.info("Loaded %d historical responses", n)
-    return n
+    return stats
 
 
-def _domain_from_filename(stem: str) -> str:
-    """Infer domain from filename, e.g. security_responses -> Security."""
-    parts = stem.replace("_", " ").replace("-", " ").split()
-    if not parts:
-        return "General"
-    return parts[0].title()
+def load_historical_data() -> int:
+    """
+    Load historical data (for API endpoint). Returns total documents added.
+    """
+    stats = load_all_historical_data()
+    return stats["total_documents"]
+
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+    stats = load_all_historical_data()
+    print(f"Loaded historical data: {stats}")

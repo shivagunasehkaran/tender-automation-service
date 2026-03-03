@@ -1,0 +1,44 @@
+[
+  {
+    "question": "What AI and machine learning capabilities does your platform offer?",
+    "answer": "Our platform includes ML-powered features for natural language processing, recommendation engines, and predictive analytics. We offer pre-trained models for common use cases and support custom model training for enterprise customers. Features include automated classification, sentiment analysis, and anomaly detection. All AI capabilities are exposed via APIs for integration into customer workflows.",
+    "domain": "AI/ML",
+    "tender_id": "TENDER-2024-001",
+    "date": "2024-06-15"
+  },
+  {
+    "question": "How do you govern training data for AI models?",
+    "answer": "Training data is sourced from anonymized and aggregated usage data with explicit consent. We maintain data lineage and versioning for all model training datasets. Access to training data is restricted and audited. We do not use customer-specific data for model training without contractual agreement. Data quality checks run before each training cycle.",
+    "domain": "AI/ML",
+    "tender_id": "TENDER-2024-001",
+    "date": "2024-06-15"
+  },
+  {
+    "question": "What measures do you take to detect and prevent bias in AI models?",
+    "answer": "We conduct bias audits on all production models using established fairness metrics. Our team evaluates models across demographic and usage segments before deployment. We use techniques including reweighting, calibration, and threshold tuning to mitigate bias. Ongoing monitoring detects drift and performance disparities. We document our fairness approach and findings for customer review.",
+    "domain": "AI/ML",
+    "tender_id": "TENDER-2024-002",
+    "date": "2024-07-22"
+  },
+  {
+    "question": "How do you ensure AI model explainability and transparency?",
+    "answer": "We provide feature importance scores and local explanations for model predictions. Enterprise customers can access model cards describing architecture, training data, and limitations. We support SHAP and LIME-based explanations where applicable. Our documentation includes guidance on interpreting model outputs and known edge cases. We are transparent about when human review is recommended.",
+    "domain": "AI/ML",
+    "tender_id": "TENDER-2024-002",
+    "date": "2024-07-22"
+  },
+  {
+    "question": "What is your approach to AI ethics and responsible use?",
+    "answer": "We adhere to responsible AI principles including fairness, accountability, and transparency. Our AI ethics committee reviews new capabilities before release. We provide guardrails to prevent misuse and support opt-out of AI features where appropriate. We document intended use cases and limitations. We engage with industry bodies on AI standards and best practices.",
+    "domain": "AI/ML",
+    "tender_id": "TENDER-2024-003",
+    "date": "2024-08-10"
+  },
+  {
+    "question": "Do you support custom AI model training on customer data?",
+    "answer": "Yes. Enterprise customers can train custom models on their data within our secure environment. Data remains isolated and is not used for other customers' models. We support transfer learning from our base models to accelerate training. Model performance metrics and validation results are provided. Custom models can be deployed to dedicated infrastructure for isolation.",
+    "domain": "AI/ML",
+    "tender_id": "TENDER-2024-003",
+    "date": "2024-08-10"
+  }
+]

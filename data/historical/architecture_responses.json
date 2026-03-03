@@ -1,0 +1,44 @@
+[
+  {
+    "question": "Describe your system architecture and technology stack.",
+    "answer": "Our platform is built on a microservices architecture with an API-first design. Core services are containerized and orchestrated with Kubernetes. We use PostgreSQL for relational data, Redis for caching, and object storage for files. The frontend is a modern SPA with React. Our API layer is built in Python with FastAPI. We follow 12-factor app principles for configurability and scalability.",
+    "domain": "Architecture",
+    "tender_id": "TENDER-2024-001",
+    "date": "2024-06-15"
+  },
+  {
+    "question": "What integration options do you support (APIs, webhooks, SSO)?",
+    "answer": "We provide a REST API with OpenAPI documentation for all core operations. Webhooks are supported for event-driven integrations. We offer SSO via SAML 2.0 and OpenID Connect. Pre-built connectors exist for Salesforce, Slack, and Microsoft 365. Our integration platform supports custom workflows. API rate limits and authentication are configurable per integration.",
+    "domain": "Architecture",
+    "tender_id": "TENDER-2024-001",
+    "date": "2024-06-15"
+  },
+  {
+    "question": "How do you implement multi-tenancy?",
+    "answer": "We use a shared database with row-level isolation per tenant. Each tenant has a unique identifier used for data segregation. Access controls enforce tenant boundaries at the application layer. Resource quotas can be set per tenant. We support dedicated infrastructure for enterprise customers requiring physical isolation. Our architecture has been audited for tenant data separation.",
+    "domain": "Architecture",
+    "tender_id": "TENDER-2024-002",
+    "date": "2024-07-22"
+  },
+  {
+    "question": "What is your API versioning and documentation approach?",
+    "answer": "We use URL-based API versioning (e.g., /api/v1/). Major versions are supported for at least 24 months after deprecation. We provide interactive OpenAPI documentation and SDKs for Python, JavaScript, and Java. Changelogs document breaking changes. Beta features are available under a separate path. We maintain backward compatibility within major versions.",
+    "domain": "Architecture",
+    "tender_id": "TENDER-2024-002",
+    "date": "2024-07-22"
+  },
+  {
+    "question": "Can your platform be deployed on-premises?",
+    "answer": "We offer a self-hosted option for enterprise customers with strict data residency or air-gapped requirements. The deployment package includes container images and Helm charts. We provide installation guidance and support for initial setup. Updates are released quarterly with migration documentation. Support for on-premises deployments is available under our enterprise tier.",
+    "domain": "Architecture",
+    "tender_id": "TENDER-2024-003",
+    "date": "2024-08-10"
+  },
+  {
+    "question": "What messaging or event-driven capabilities do you provide?",
+    "answer": "We support webhooks for real-time event notification. Events include entity creation, updates, and deletions. Payloads are signed for verification. We also offer a message queue for high-volume integrations. Event schemas are documented and versioned. Retry logic and dead-letter handling are configurable. Enterprise customers can access our internal event bus for advanced integrations.",
+    "domain": "Architecture",
+    "tender_id": "TENDER-2024-003",
+    "date": "2024-08-10"
+  }
+]
