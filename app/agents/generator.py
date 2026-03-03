@@ -34,14 +34,8 @@ def _format_historical_matches(matches: list[dict]) -> str:
     return "\n\n".join(parts)
 
 
-def generate_response(state: TenderState) -> dict:
-    """
-    Generate a professional tender response for the current question.
-
-    Reads: questions[current].original_question, domain, historical_matches, has_historical_match
-    Writes to: questions[current].generated_answer
-    On failure: generated_answer="", status="failed", error set.
-    """
+def _generate(state: TenderState, use_history: bool) -> dict:
+    """Internal: generate response using with-history or without-history prompt."""
     settings = get_settings()
     current_idx = state["current_question_index"]
     questions = [dict(q) for q in state["questions"]]
@@ -57,7 +51,7 @@ def generate_response(state: TenderState) -> dict:
         question = current_q.get("original_question", "")
         domain = current_q.get("domain", "")
 
-        if current_q.get("has_historical_match") and current_q.get("historical_matches"):
+        if use_history and current_q.get("historical_matches"):
             historical_matches_str = _format_historical_matches(current_q["historical_matches"])
             user_prompt = GENERATOR_WITH_HISTORY_PROMPT.format(
                 question=question,
@@ -89,3 +83,13 @@ def generate_response(state: TenderState) -> dict:
         current_q["error"] = str(e)
         questions[current_idx] = current_q
         return {"questions": questions}
+
+
+def generate_with_history(state: TenderState) -> dict:
+    """Generate response grounded in historical matches (graph branch: has_match)."""
+    return _generate(state, use_history=True)
+
+
+def generate_without_history(state: TenderState) -> dict:
+    """Generate response without historical context (graph branch: no_match)."""
+    return _generate(state, use_history=False)

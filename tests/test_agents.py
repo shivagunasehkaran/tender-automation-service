@@ -11,7 +11,7 @@ from unittest.mock import MagicMock, patch
 from app.graph.state import create_initial_state
 from app.agents.classifier import classify_question
 from app.agents.retrieval import retrieve_historical
-from app.agents.generator import generate_response
+from app.agents.generator import generate_with_history, generate_without_history
 from app.agents.reviewer import review_response
 
 
@@ -91,7 +91,7 @@ def test_generator_sets_generated_answer(mock_chat):
     state["questions"][0]["domain"] = "Security"
     state["questions"][0]["has_historical_match"] = False
 
-    out = generate_response(state)
+    out = generate_without_history(state)
 
     assert "questions" in out
     q = out["questions"][0]
@@ -107,7 +107,7 @@ def test_generator_on_failure_marks_question_failed(mock_chat):
     state = create_initial_state("test", [(1, "Question?")])
     state["questions"][0]["domain"] = "Security"
 
-    out = generate_response(state)
+    out = generate_without_history(state)
 
     q = out["questions"][0]
     assert q["generated_answer"] == ""

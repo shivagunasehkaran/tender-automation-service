@@ -9,7 +9,7 @@ import logging
 from langgraph.graph import END, StateGraph
 
 from app.agents.classifier import classify_question
-from app.agents.generator import generate_response
+from app.agents.generator import generate_with_history, generate_without_history
 from app.agents.retrieval import retrieve_historical
 from app.agents.reviewer import review_response
 from app.graph.state import TenderState
@@ -41,6 +41,18 @@ def generate_summary(state: TenderState) -> dict:
     }
 
 
+def route_by_history(state: TenderState) -> str:
+    """
+    Conditional edge: branch based on historical match.
+    Returns 'with_history' or 'without_history'.
+    """
+    current_idx = state["current_question_index"]
+    current_q = state["questions"][current_idx]
+    if current_q.get("has_historical_match") and current_q.get("historical_matches"):
+        return "with_history"
+    return "without_history"
+
+
 def should_continue(state: TenderState) -> str:
     """
     Conditional edge: decide whether to process next question or finish.
@@ -58,7 +70,8 @@ def build_workflow() -> StateGraph:
 
     workflow.add_node("classify", classify_question)
     workflow.add_node("retrieve", retrieve_historical)
-    workflow.add_node("generate", generate_response)
+    workflow.add_node("generate_with_history", generate_with_history)
+    workflow.add_node("generate_without_history", generate_without_history)
     workflow.add_node("review", review_response)
     workflow.add_node("increment", increment_question_index)
     workflow.add_node("summarize", generate_summary)
@@ -66,8 +79,16 @@ def build_workflow() -> StateGraph:
     workflow.set_entry_point("classify")
 
     workflow.add_edge("classify", "retrieve")
-    workflow.add_edge("retrieve", "generate")
-    workflow.add_edge("generate", "review")
+    workflow.add_conditional_edges(
+        "retrieve",
+        route_by_history,
+        {
+            "with_history": "generate_with_history",
+            "without_history": "generate_without_history",
+        },
+    )
+    workflow.add_edge("generate_with_history", "review")
+    workflow.add_edge("generate_without_history", "review")
 
     workflow.add_conditional_edges(
         "review",
