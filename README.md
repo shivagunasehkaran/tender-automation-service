@@ -116,8 +116,14 @@ curl -X POST http://localhost:8000/api/v1/historical/load
 
 #### 3. Process Excel (multipart)
 ```bash
+# JSON response (default)
 curl -X POST "http://localhost:8000/api/v1/tender/process?format=json" \
   -F "file=@data/sample_input.xlsx"
+
+# Excel file (save with -o)
+curl -X POST "http://localhost:8000/api/v1/tender/process?format=excel" \
+  -F "file=@data/sample_input.xlsx" \
+  -o tender_response.xlsx
 ```
 
 **Query params:** `format` = `json` (default) or `excel`
