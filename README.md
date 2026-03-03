@@ -1,6 +1,6 @@
 # Tender Automation Service
 
-FastAPI-based multi-agent service using LangGraph that generates structured tender responses from Excel or JSON input. References historical responses, maintains consistency, and adapts to each client's wording.
+FastAPI-based multi-agent service using LangGraph that generates structured tender responses from Excel input. References historical responses, maintains consistency, and adapts to each client's wording.
 
 ---
 
@@ -87,7 +87,6 @@ http://localhost:8000
 | POST | `/api/v1/historical/load` | Load historical data |
 | GET | `/api/v1/historical/stats` | Vector store stats |
 | POST | `/api/v1/tender/process` | Process Excel file |
-| POST | `/api/v1/tender/process/json` | Process JSON body |
 
 ---
 
@@ -125,30 +124,7 @@ curl -X POST "http://localhost:8000/api/v1/tender/process?format=json" \
 
 ---
 
-#### 4. Process JSON
-```bash
-curl -X POST "http://localhost:8000/api/v1/tender/process/json?format=json" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "questions": [
-      {"question_number": 1, "original_question": "Does the platform enforce TLS 1.2 or higher?"},
-      {"question_number": 2, "original_question": "Do you support SSL and TLS?"}
-    ]
-  }'
-```
-
-**Request body:**
-```json
-{
-  "questions": [
-    {"question_number": 1, "original_question": "Your question here?"}
-  ]
-}
-```
-
----
-
-#### 5. Example Response (JSON)
+#### 4. Example Response (JSON)
 ```json
 {
   "session_id": "uuid-here",
