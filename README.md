@@ -62,6 +62,25 @@ pytest tests/ -v
 
 ---
 
+### Design Decisions
+
+| Decision | Choice | Why |
+|----------|--------|-----|
+| 4 agents (not 2–3) | Classifier separate from Retrieval | Domain tagging before search enables metadata filtering, reducing noise |
+| ChromaDB over FAISS | Native metadata filtering | Domain-scoped retrieval without manual post-filtering |
+| fastembed over OpenAI embeddings | Local inference | Zero API cost for embeddings, sufficient quality for retrieval |
+| gpt-4o only for Generator | Cost optimization | Classification and review are structured tasks — gpt-4o-mini handles them well |
+| JSON default + optional Excel output | API-friendly with business-user accessibility | Tender teams work in spreadsheets |
+
+---
+
+### Memory Design
+
+- **Short-term (LangGraph State)**: Per-session — current question index, processing progress, per-question results. Dies when request completes.
+- **Long-term (ChromaDB)**: Persists across sessions — historical tender Q&A pairs with domain metadata. Grows as new tenders are processed.
+
+---
+
 ## 3. Sample Data & Output
 
 | Item | Location |
@@ -175,7 +194,6 @@ This is an assessment MVP. The following capabilities are not implemented but wo
 | **Chunking strategy** | No. Historical Q&A pairs are stored as whole documents (one question per document). No sentence splitting, recursive splitting, or other chunking. |
 | **Validation / guardrails** | Limited. Prompts say "never fabricate" and "maintain consistency." The reviewer flags issues. There is a `similarity_threshold` (0.7) to filter weak matches. No programmatic guardrails (PII, prompt injection, output validation). |
 | **Security standards** | No. No auth, rate limiting, or input sanitization. File upload only checks `.xlsx`/`.xls`. No explicit security controls. |
-| **RAG output evaluation** | No. No metrics, ground-truth comparison, or automated evaluation of retrieval or generation quality. |
+| **RAG output evaluation** | No. Would add RAGAS for retrieval quality (Recall@K, MRR), DeepEval for response faithfulness. |
 | **Latency, cost, metrics** | No. No latency tracking, token counting, cost calculation, or metrics. |
-| **Recall@5 or MRR** | No. No retrieval metrics (Recall@5, MRR, etc.). |
 | **Reranking** | No. Single-stage retrieval: ChromaDB `top_k` + `similarity_threshold`. No second-stage reranker. |
